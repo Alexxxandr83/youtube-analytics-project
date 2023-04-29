@@ -18,7 +18,6 @@ class Channel:
         self.subscriber_count = 0
         self.video_count = 0
         self.view_count = 0
-        self.service = Channel.get_service()
 
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
@@ -89,17 +88,3 @@ class Channel:
         }
         with open(file_name, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-
-
-vdud = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
-redactsiya = Channel('UC1eFXmJNkjITxPFWTy6RsWg')
-print(vdud)
-
-print(vdud + redactsiya)
-print(vdud - redactsiya)
-print(redactsiya - vdud)
-print(vdud > redactsiya)
-print(vdud >= redactsiya)
-print(vdud < redactsiya)
-print(vdud <= redactsiya)
-print(vdud == redactsiya)
