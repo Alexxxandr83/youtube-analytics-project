@@ -18,6 +18,7 @@ class Channel:
         self.subscriber_count = 0
         self.video_count = 0
         self.view_count = 0
+        self.service = Channel.get_service()
 
         api_key: str = os.getenv('API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
@@ -31,6 +32,30 @@ class Channel:
             self.subscriber_count = channel['statistics']['subscriberCount']
             self.video_count = channel['statistics']['videoCount']
             self.view_count = channel['statistics']['viewCount']
+
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __lt__(self, other):
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other):
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __eq__(self, other):
+        return int(self.subscriber_count) == int(other.subscriber_count)
 
     @property
     def channel_id(self):
@@ -65,3 +90,16 @@ class Channel:
         with open(file_name, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
+
+vdud = Channel('UCMCgOm8GZkHp8zJ6l7_hIuA')
+redactsiya = Channel('UC1eFXmJNkjITxPFWTy6RsWg')
+print(vdud)
+
+print(vdud + redactsiya)
+print(vdud - redactsiya)
+print(redactsiya - vdud)
+print(vdud > redactsiya)
+print(vdud >= redactsiya)
+print(vdud < redactsiya)
+print(vdud <= redactsiya)
+print(vdud == redactsiya)
